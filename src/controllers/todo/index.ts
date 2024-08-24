@@ -1,9 +1,18 @@
-import { Todo } from "@/models";
+import { Todo, TodoModel } from "@/models";
 import { todoRepository } from "@/repositories";
 import { NextFunction, Request, Response } from "express";
 
-async function getTodo(req: Request, res: Response, next: NextFunction) {
+async function getTodo(
+  req: Request<Pick<Todo, "id">>,
+  res: Response,
+  next: NextFunction
+) {
   const { id } = req.params;
+
+  if (!id) {
+    return res.sendStatus(404);
+  }
+
   const todo = await todoRepository.getTodo(id);
 
   if (!todo) {
@@ -14,12 +23,12 @@ async function getTodo(req: Request, res: Response, next: NextFunction) {
 }
 
 async function getTodos(req: Request, res: Response, next: NextFunction) {
-  const todos = await todoRepository.getTodos();
+  const todos = await TodoModel.find({});
 
   res.json(todos);
 }
 
-async function postTodo(req: Request, res: Response, next: NextFunction) {
+async function postTodo(req: Request<Todo>, res: Response, next: NextFunction) {
   const todo = req.body as Todo;
 
   const result = await todoRepository.createTodo(todo);
@@ -31,9 +40,17 @@ async function postTodo(req: Request, res: Response, next: NextFunction) {
   res.status(201).json(result);
 }
 
-async function patchTodo(req: Request, res: Response, next: NextFunction) {
+async function patchTodo(
+  req: Request<Pick<Todo, "id">>,
+  res: Response<Todo>,
+  next: NextFunction
+) {
   const { id } = req.params;
-  const todo = req.body as Todo;
+  const todo = req.body;
+
+  if (!id) {
+    return res.sendStatus(404);
+  }
 
   const result = await todoRepository.updateTodo(id, todo);
 
@@ -44,8 +61,16 @@ async function patchTodo(req: Request, res: Response, next: NextFunction) {
   res.json(result);
 }
 
-async function deleteTodo(req: Request, res: Response, next: NextFunction) {
+async function deleteTodo(
+  req: Request<Pick<Todo, "id">>,
+  res: Response,
+  next: NextFunction
+) {
   const { id } = req.params;
+
+  if (!id) {
+    return res.sendStatus(404);
+  }
 
   const success = await todoRepository.deleteTodo(id);
 

@@ -1,8 +1,6 @@
 import { todoController } from "@/controllers";
 import express from "express";
 
-const baseUrl = "/v1";
-
 const todoRouter = express.Router();
 
 todoRouter.get("/:id", todoController.getTodo);

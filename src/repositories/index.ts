@@ -1,3 +1,3 @@
-import todoRepository from "./todoRepository";
+import todoRepository from "./todo";
 
 export { todoRepository };

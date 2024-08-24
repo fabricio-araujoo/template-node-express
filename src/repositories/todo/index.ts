@@ -1,9 +1,9 @@
 import { Todo } from "@/models";
-import { v4 as uuid } from "uuid";
+import { ObjectId } from "mongodb";
 
 const todos: Todo[] = [];
 
-async function getTodo(id: string): Promise<Todo | undefined> {
+async function getTodo(id: ObjectId): Promise<Todo | undefined> {
   return new Promise((resolve, reject) => {
     return resolve(todos.find((todo) => todo.id === id));
   });
@@ -21,7 +21,7 @@ async function createTodo(todo: Todo): Promise<Todo> {
       return reject(new Error("Não é possivel criar uma tarefa sem título."));
     }
 
-    const newTodo = new Todo(uuid(), todo.title);
+    const newTodo = new Todo(undefined, todo.title);
 
     todos.push(newTodo);
 
@@ -29,7 +29,7 @@ async function createTodo(todo: Todo): Promise<Todo> {
   });
 }
 
-async function updateTodo(id: string, todo: Todo): Promise<Todo | undefined> {
+async function updateTodo(id: ObjectId, todo: Todo): Promise<Todo | undefined> {
   return new Promise((resolve, reject) => {
     const index = todos.findIndex((todo) => todo.id === id);
 
@@ -43,7 +43,7 @@ async function updateTodo(id: string, todo: Todo): Promise<Todo | undefined> {
   });
 }
 
-async function deleteTodo(id: string): Promise<boolean> {
+async function deleteTodo(id: ObjectId): Promise<boolean> {
   return new Promise((resolve, reject) => {
     const index = todos.findIndex((todo) => todo.id === id);
 
