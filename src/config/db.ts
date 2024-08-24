@@ -3,12 +3,13 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-async function mongoConnect() {
-  const connectStr = `${process.env.MONGO_CONNECT || ""}`;
+const connectStr = `${process.env.MONGO_CONNECT || ""}`;
 
-  mongoose.connect(connectStr);
+mongoose.connect(connectStr);
 
-  return mongoose.connection;
-}
+const mongo = mongoose.connection;
 
-export { mongoConnect };
+mongo.on("error", (err) => console.error("Mongo Connection Error: ", err));
+mongo.once("open", () => console.log("Mongo Connection Started!"));
+
+module.exports = mongo;

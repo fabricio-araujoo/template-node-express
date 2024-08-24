@@ -6,7 +6,7 @@
   "author": "Fabricio Araujo <fabricioaraujo051@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon server.ts --watch 'src/'"
+    "dev": "nodemon src/server.ts --watch 'src/'"
   },
   "dependencies": {
     "body-parser": "^1.20.2",

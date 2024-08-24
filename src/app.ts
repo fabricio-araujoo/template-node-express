@@ -3,35 +3,19 @@ import cors from "cors";
 import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
-import { todoRouter } from "./routers";
-import { mongoConnect } from "./config/db";
-
 import "express-async-errors";
+import "./config/db";
+
+const todoRoutes = require("./adapters/routes/TodoRoutes");
 
 const app = express();
 
-async function setupMongo() {
-  const mongo = await mongoConnect();
+app.use(morgan("tiny"));
+app.use(bodyParser.json());
+app.use(cors());
+app.use(helmet());
+app.use(express.json());
 
-  mongo.on("error", (err) => console.error("Mongo Connection Error: ", err));
-  mongo.once("open", () => console.log("Mongo Connection Started!"));
-}
-
-async function setupMiddleware() {
-  app.use(morgan("tiny"));
-  app.use(bodyParser.json());
-  app.use(cors());
-  app.use(helmet());
-  app.use(express.json());
-}
-
-async function setup() {
-  await setupMongo();
-  await setupMiddleware();
-}
-
-setup();
-
-app.use("/v1/todo", todoRouter);
+app.use("/v1", todoRoutes);
 
 export default app;
