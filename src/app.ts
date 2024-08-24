@@ -15,7 +15,6 @@ app.use(cors());
 app.use(helmet());
 app.use(express.json());
 
-// adicionar para cada rota nova uma linha com app.use(rota, router)
-app.use("/todo", todoRouter);
+app.use("/v1/todo", todoRouter);
 
 export default app;
