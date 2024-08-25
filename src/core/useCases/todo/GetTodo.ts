@@ -1,18 +1,15 @@
 import { Todo } from "@/core/models/Todo";
 import { ITodoService } from "@/core/services/TodoService";
+import { ObjectId } from "mongoose";
 
-export class GetTodos {
+export class GetTodo {
   private todoService: ITodoService;
 
   constructor(todoService: ITodoService) {
     this.todoService = todoService;
   }
 
-  async execute(title?: string): Promise<Todo[] | null> {
-    if (!title) {
-      return await this.todoService.getTodos(title);
-    }
-
-    return await this.todoService.getTodosByTitle(title);
+  async execute(id: ObjectId): Promise<Todo | null> {
+    return await this.todoService.getTodoById(id);
   }
 }

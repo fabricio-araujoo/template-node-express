@@ -3,7 +3,9 @@ import { Todo } from "../models/Todo";
 import { ITodoRepository } from "@/ports/repository/TodoRepository";
 
 export interface ITodoService {
-  getTodos(): Promise<Todo[] | null>;
+  getTodos(title?: string): Promise<Todo[] | null>;
+  getTodoById(id: ObjectId): Promise<Todo | null>;
+  getTodosByTitle(title: string): Promise<Todo[] | null>;
 }
 
 export class TodoService implements ITodoService {
@@ -15,5 +17,13 @@ export class TodoService implements ITodoService {
 
   async getTodos(): Promise<Todo[] | null> {
     return await this.todoRepository.find();
+  }
+
+  async getTodoById(id: ObjectId): Promise<Todo | null> {
+    return await this.todoRepository.findById(id);
+  }
+
+  async getTodosByTitle(title: string): Promise<Todo[] | null> {
+    return await this.todoRepository.findByTitle(title);
   }
 }

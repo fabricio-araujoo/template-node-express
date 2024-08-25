@@ -1,5 +1,4 @@
-import { ObjectId } from "mongodb";
-import mongoose from "mongoose";
+import mongoose, { ObjectId } from "mongoose";
 
 export class Todo {
   id?: ObjectId;
