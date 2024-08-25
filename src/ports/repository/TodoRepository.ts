@@ -5,4 +5,5 @@ export interface ITodoRepository {
   find(): Promise<Todo[] | null>;
   findById(id: ObjectId): Promise<Todo | null>;
   findByTitle(title: string): Promise<Todo[] | null>;
+  saveTodo(title: string): Promise<unknown>;
 }

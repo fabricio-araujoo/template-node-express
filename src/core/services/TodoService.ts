@@ -1,29 +1,27 @@
 import { ObjectId } from "mongoose";
-import { Todo } from "../models/Todo";
 import { ITodoRepository } from "@/ports/repository/TodoRepository";
+import { ITodo } from "../models/Todo";
 
-export interface ITodoService {
-  getTodos(title?: string): Promise<Todo[] | null>;
-  getTodoById(id: ObjectId): Promise<Todo | null>;
-  getTodosByTitle(title: string): Promise<Todo[] | null>;
-}
-
-export class TodoService implements ITodoService {
+export class TodoService {
   private todoRepository: ITodoRepository;
 
   constructor(todoRepository: ITodoRepository) {
     this.todoRepository = todoRepository;
   }
 
-  async getTodos(): Promise<Todo[] | null> {
-    return await this.todoRepository.find();
+  async getTodos(): Promise<ITodo[] | null> {
+    return this.todoRepository.find();
   }
 
-  async getTodoById(id: ObjectId): Promise<Todo | null> {
-    return await this.todoRepository.findById(id);
+  async getTodosByTitle(title: string): Promise<ITodo[] | null> {
+    return this.todoRepository.findByTitle(title);
   }
 
-  async getTodosByTitle(title: string): Promise<Todo[] | null> {
-    return await this.todoRepository.findByTitle(title);
+  async getTodoById(id: ObjectId): Promise<ITodo | null> {
+    return this.todoRepository.findById(id);
+  }
+
+  async saveTodo(title: string): Promise<unknown> {
+    return this.todoRepository.saveTodo(title);
   }
 }

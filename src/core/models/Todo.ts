@@ -1,15 +1,20 @@
 import mongoose, { ObjectId } from "mongoose";
 
-export class Todo {
-  id?: ObjectId;
-  title: string;
-  completed: boolean;
+export const TodoSchema = new mongoose.Schema({
+  id: {
+    type: mongoose.Schema.Types.ObjectId,
+  },
+  title: {
+    type: String,
+    require: true,
+  },
+  completed: {
+    type: Boolean,
+    require: true,
+    default: false,
+  },
+});
 
-  constructor(id: ObjectId | undefined, title: string) {
-    this.id = id;
-    this.title = title;
-    this.completed = false;
-  }
-}
+export const TodoModel = mongoose.model("tarefas", TodoSchema);
 
-export const TodoModel = mongoose.model("tarefas", new mongoose.Schema(Todo));
+export type ITodo = typeof TodoSchema;
