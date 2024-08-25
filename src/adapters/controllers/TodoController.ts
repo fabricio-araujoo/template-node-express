@@ -42,7 +42,7 @@ export class TodoController implements ITodoController {
     res: Response
   ): Promise<Response<ITodo>> {
     try {
-      const { id } = req.query as IGetTodoRequestParams;
+      const { id } = req.params;
 
       const todo = await this.getTodoUseCase.execute(id);
 

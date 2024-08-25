@@ -24,7 +24,7 @@ router.get(
 );
 
 router.get(
-  `${base}/details`,
+  `${base}/details/:id`,
   (req: Request<IGetTodoRequestParams>, res: Response) =>
     constroller.getTodo(req, res)
 );
