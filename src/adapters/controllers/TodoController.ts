@@ -48,6 +48,8 @@ export class TodoController implements ITodoController {
 
       return res.json(todo);
     } catch (err) {
+      console.log("errou");
+
       return res.status(500).json({ error: (err as Error).message });
     }
   }

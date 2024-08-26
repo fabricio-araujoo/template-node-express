@@ -1,4 +1,4 @@
-import mongoose, { ObjectId } from "mongoose";
+import mongoose from "mongoose";
 
 export const TodoSchema = new mongoose.Schema({
   id: {

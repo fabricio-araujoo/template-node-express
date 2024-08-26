@@ -14,7 +14,6 @@ const base = "/todo";
 
 const repository = new TodoRepository();
 const service = new TodoService(repository);
-
 const constroller = new TodoController(service);
 
 router.get(
@@ -35,4 +34,4 @@ router.post(
     constroller.saveTodo(req, res)
 );
 
-module.exports = router;
+export default router;

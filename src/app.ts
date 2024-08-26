@@ -4,11 +4,10 @@ import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
 import errorHandlingMiddleware from "./adapters/middlewares/errorHandler";
+import todoRoutes from "./adapters/routes/TodoRoutes";
 
 import "express-async-errors";
 import "./config/db";
-
-const todoRoutes = require("./adapters/routes/TodoRoutes");
 
 const app = express();
 
