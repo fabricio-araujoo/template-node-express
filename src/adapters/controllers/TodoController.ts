@@ -1,15 +1,15 @@
-import { ITodo } from "@/core/models/Todo";
-import { TodoService } from "@/core/services/TodoService";
-import { GetTodoUseCase } from "@/core/useCases/todo/GetTodoUseCase";
-import { ListTodoUseCase } from "@/core/useCases/todo/ListTodoUseCase";
-import { SaveTodoUseCase } from "@/core/useCases/todo/SaveTodoUseCase";
+import { ITodo } from '@/core/models/Todo';
+import { TodoService } from '@/core/services/TodoService';
+import { GetTodoUseCase } from '@/core/useCases/todo/GetTodoUseCase';
+import { ListTodoUseCase } from '@/core/useCases/todo/ListTodoUseCase';
+import { SaveTodoUseCase } from '@/core/useCases/todo/SaveTodoUseCase';
 import {
   IGetTodoRequestParams,
   IListTodoRequestParams,
   ISaveTodoRequestBody,
   ITodoController,
-} from "@/ports/controller/TodoController";
-import { Request, Response } from "express";
+} from '@/ports/controller/TodoController';
+import { Request, Response } from 'express';
 
 export class TodoController implements ITodoController {
   private listTodoUseCase: ListTodoUseCase;
@@ -48,6 +48,8 @@ export class TodoController implements ITodoController {
 
       return res.json(todo);
     } catch (err) {
+      console.log('errou');
+
       return res.status(500).json({ error: (err as Error).message });
     }
   }

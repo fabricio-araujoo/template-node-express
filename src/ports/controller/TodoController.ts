@@ -1,20 +1,19 @@
-import { Todo } from "@/core/models/Todo";
-import { Request, Response } from "express";
-import { ObjectId } from "mongoose";
+import { ITodo } from '@/core/models/Todo';
+import { Request, Response } from 'express';
 
 export interface ITodoController {
   listTodo(
     req: Request<IListTodoRequestParams>,
     res: Response
-  ): Promise<Response<Todo[]>>;
+  ): Promise<Response<ITodo[]>>;
   getTodo(
     req: Request<IGetTodoRequestParams>,
     res: Response
-  ): Promise<Response<Todo>>;
+  ): Promise<Response<ITodo>>;
   saveTodo(
     req: Request<ISaveTodoRequestBody>,
     res: Response
-  ): Promise<Response<Todo>>;
+  ): Promise<Response<ITodo>>;
 }
 
 export type IListTodoRequestParams = {
@@ -26,5 +25,5 @@ export type IGetTodoRequestParams = {
 };
 
 export type ISaveTodoRequestBody = {
-  title: Todo["title"];
+  title: string;
 };
