@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 export const TodoSchema = new mongoose.Schema({
   id: {
@@ -15,6 +15,6 @@ export const TodoSchema = new mongoose.Schema({
   },
 });
 
-export const TodoModel = mongoose.model("tarefas", TodoSchema);
+export const TodoModel = mongoose.model('tarefas', TodoSchema);
 
 export type ITodo = typeof TodoSchema;

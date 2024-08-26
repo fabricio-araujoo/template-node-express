@@ -1,16 +1,16 @@
-import express, { Request, Response } from "express";
-import { TodoController } from "../controllers/TodoController";
-import { TodoRepository } from "../repository/TodoRepository";
-import { TodoService } from "@/core/services/TodoService";
+import express, { Request, Response } from 'express';
+import { TodoController } from '../controllers/TodoController';
+import { TodoRepository } from '../repository/TodoRepository';
+import { TodoService } from '@/core/services/TodoService';
 import {
   IGetTodoRequestParams,
   IListTodoRequestParams,
   ISaveTodoRequestBody,
-} from "@/ports/controller/TodoController";
+} from '@/ports/controller/TodoController';
 
 const router = express.Router();
 
-const base = "/todo";
+const base = '/todo';
 
 const repository = new TodoRepository();
 const service = new TodoService(repository);

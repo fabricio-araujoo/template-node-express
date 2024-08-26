@@ -1,5 +1,5 @@
-import { ITodo } from "@/core/models/Todo";
-import { TodoService } from "@/core/services/TodoService";
+import { ITodo } from '@/core/models/Todo';
+import { TodoService } from '@/core/services/TodoService';
 
 export class ListTodoUseCase {
   private todoService: TodoService;

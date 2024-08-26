@@ -1,5 +1,5 @@
-import { ITodo } from "@/core/models/Todo";
-import { Request, Response } from "express";
+import { ITodo } from '@/core/models/Todo';
+import { Request, Response } from 'express';
 
 export interface ITodoController {
   listTodo(

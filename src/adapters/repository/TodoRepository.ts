@@ -1,6 +1,6 @@
-import { TodoModel, ITodo } from "@/core/models/Todo";
-import { ITodoRepository } from "@/ports/repository/TodoRepository";
-import { ObjectId } from "mongoose";
+import { TodoModel, ITodo } from '@/core/models/Todo';
+import { ITodoRepository } from '@/ports/repository/TodoRepository';
+import { ObjectId } from 'mongoose';
 
 export class TodoRepository implements ITodoRepository {
   async find(): Promise<ITodo[] | null> {
@@ -12,7 +12,7 @@ export class TodoRepository implements ITodoRepository {
   }
 
   async findByTitle(title: string): Promise<ITodo[] | null> {
-    return TodoModel.find({ title: new RegExp(title, "i") });
+    return TodoModel.find({ title: new RegExp(title, 'i') });
   }
 
   async saveTodo(title: string) {

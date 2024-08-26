@@ -1,5 +1,5 @@
-import { Todo } from "@/core/models/Todo";
-import { ObjectId } from "mongoose";
+import { Todo } from '@/core/models/Todo';
+import { ObjectId } from 'mongoose';
 
 export interface ITodoRepository {
   find(): Promise<Todo[] | null>;
