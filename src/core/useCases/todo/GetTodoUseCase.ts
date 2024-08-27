@@ -10,6 +10,6 @@ export class GetTodoUseCase {
   }
 
   async execute(id: string): Promise<ITodo | null> {
-    return await this.todoService.getTodoById(id as unknown as ObjectId);
+    return this.todoService.getTodoById(id as unknown as ObjectId);
   }
 }

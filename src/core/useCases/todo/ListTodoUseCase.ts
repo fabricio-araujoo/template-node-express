@@ -8,11 +8,23 @@ export class ListTodoUseCase {
     this.todoService = todoService;
   }
 
-  async execute(title?: string): Promise<ITodo[] | null> {
-    if (!title) {
-      return await this.todoService.getTodos();
+  async execute(title?: string, completed?: boolean): Promise<ITodo[]> {
+    if (!title && !completed) {
+      return this.getTodos();
     }
 
-    return await this.todoService.getTodosByTitle(title);
+    return this.getFilteredTodos(title);
+  }
+
+  private async getTodos() {
+    const arr = await this.todoService.getTodos();
+
+    return arr || [];
+  }
+
+  private async getFilteredTodos(title?: string, completed?: boolean) {
+    const byTitle = await this.todoService.getTodosByTitle(title || '');
+
+    return byTitle || [];
   }
 }

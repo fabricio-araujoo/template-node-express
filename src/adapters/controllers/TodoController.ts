@@ -9,7 +9,7 @@ import {
   ISaveTodoRequestBody,
   ITodoController,
 } from '@/ports/controller/TodoController';
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 
 export class TodoController implements ITodoController {
   private listTodoUseCase: ListTodoUseCase;
@@ -23,24 +23,26 @@ export class TodoController implements ITodoController {
   }
 
   async listTodo(
-    req: Request<IListTodoRequestParams>,
-    res: Response
-  ): Promise<Response<ITodo[]>> {
+    req: Request<unknown, unknown, unknown, IListTodoRequestParams>,
+    res: Response<ITodo[]>,
+    next: NextFunction
+  ): Promise<Response<ITodo[]> | void> {
     try {
-      const { title } = req.query as IListTodoRequestParams;
+      const { title } = req.query;
 
       const todos = await this.listTodoUseCase.execute(title);
 
       return res.json(todos);
     } catch (err) {
-      return res.status(500).json({ error: (err as Error).message });
+      next(err);
     }
   }
 
   async getTodo(
     req: Request<IGetTodoRequestParams>,
-    res: Response
-  ): Promise<Response<ITodo>> {
+    res: Response<ITodo | null>,
+    next: NextFunction
+  ): Promise<Response<ITodo> | void> {
     try {
       const { id } = req.params;
 
@@ -48,24 +50,23 @@ export class TodoController implements ITodoController {
 
       return res.json(todo);
     } catch (err) {
-      console.log('errou');
-
-      return res.status(500).json({ error: (err as Error).message });
+      next(err);
     }
   }
 
   async saveTodo(
-    req: Request<ISaveTodoRequestBody>,
-    res: Response
-  ): Promise<Response> {
+    req: Request<unknown, unknown, ISaveTodoRequestBody>,
+    res: Response<ITodo>,
+    next: NextFunction
+  ): Promise<Response<ITodo> | void> {
     try {
-      const { title } = req.body as ISaveTodoRequestBody;
+      const { title } = req.body;
 
       const todo = await this.saveTodoUseCase.execute(title);
 
       return res.json(todo);
     } catch (err) {
-      return res.status(500).json({ error: (err as Error).message });
+      next(err);
     }
   }
 }

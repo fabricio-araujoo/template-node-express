@@ -1,19 +1,22 @@
 import { ITodo } from '@/core/models/Todo';
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 
 export interface ITodoController {
   listTodo(
-    req: Request<IListTodoRequestParams>,
-    res: Response
-  ): Promise<Response<ITodo[]>>;
+    req: Request<unknown, unknown, unknown, IListTodoRequestParams>,
+    res: Response<ITodo[]>,
+    next: NextFunction
+  ): Promise<Response<ITodo[]> | void>;
   getTodo(
     req: Request<IGetTodoRequestParams>,
-    res: Response
-  ): Promise<Response<ITodo>>;
+    res: Response<ITodo | null>,
+    next: NextFunction
+  ): Promise<Response<ITodo> | void>;
   saveTodo(
-    req: Request<ISaveTodoRequestBody>,
-    res: Response
-  ): Promise<Response<ITodo>>;
+    req: Request<unknown, unknown, ISaveTodoRequestBody>,
+    res: Response<ITodo>,
+    next: NextFunction
+  ): Promise<Response<ITodo> | void>;
 }
 
 export type IListTodoRequestParams = {

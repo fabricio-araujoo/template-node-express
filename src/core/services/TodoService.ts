@@ -21,7 +21,7 @@ export class TodoService {
     return this.todoRepository.findById(id);
   }
 
-  async saveTodo(title: string): Promise<unknown> {
+  async saveTodo(title: string): Promise<ITodo> {
     return this.todoRepository.saveTodo(title);
   }
 }

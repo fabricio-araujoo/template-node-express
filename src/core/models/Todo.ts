@@ -1,20 +1,27 @@
-import mongoose from 'mongoose';
+import mongoose, { Document, ObjectId } from 'mongoose';
 
-export const TodoSchema = new mongoose.Schema({
-  id: {
-    type: mongoose.Schema.Types.ObjectId,
-  },
-  title: {
-    type: String,
-    require: true,
-  },
-  completed: {
-    type: Boolean,
-    require: true,
-    default: false,
-  },
-});
+export interface ITodo extends Document {
+  _id: ObjectId;
+  title: string;
+  completed: boolean;
+}
 
-export const TodoModel = mongoose.model('tarefas', TodoSchema);
+export const TodoSchema = new mongoose.Schema(
+  {
+    id: {
+      type: mongoose.Schema.Types.ObjectId,
+    },
+    title: {
+      type: String,
+      required: [true, 'O título da tarefa é obrigatório'],
+    },
+    completed: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+  },
+  { versionKey: false }
+);
 
-export type ITodo = typeof TodoSchema;
+export const TodoModel = mongoose.model<ITodo>('tarefas', TodoSchema);

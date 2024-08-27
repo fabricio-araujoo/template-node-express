@@ -1,9 +1,9 @@
-import { Todo } from '@/core/models/Todo';
-import { ObjectId } from 'mongoose';
+import { ITodo } from '@/core/models/Todo';
+import { Document, ObjectId } from 'mongoose';
 
 export interface ITodoRepository {
-  find(): Promise<Todo[] | null>;
-  findById(id: ObjectId): Promise<Todo | null>;
-  findByTitle(title: string): Promise<Todo[] | null>;
-  saveTodo(title: string): Promise<unknown>;
+  find(): Promise<ITodo[] | null>;
+  findById(id: ObjectId): Promise<ITodo | null>;
+  findByTitle(title: string): Promise<ITodo[] | null>;
+  saveTodo(title: string): Promise<ITodo>;
 }

@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon src/server.ts --watch src/",
-    "lint": "eslint src/ --fix"
+    "lint:fix": "eslint src/ --fix"
   },
   "dependencies": {
     "body-parser": "^1.20.2",
