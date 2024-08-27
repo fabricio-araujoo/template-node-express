@@ -1,6 +1,8 @@
 import { ITodo } from '@/core/models/Todo';
 import { TodoService } from '@/core/services/TodoService';
+import { IListTodoResponse } from '@/ports/controller/TodoController';
 import { IFindByFilterParams } from '@/ports/repository/TodoRepository';
+import { IPaginationData, Pagination } from '@/utils/Pagination';
 
 export class ListTodoUseCase {
   private todoService: TodoService;
@@ -9,12 +11,27 @@ export class ListTodoUseCase {
     this.todoService = todoService;
   }
 
-  async execute(title?: string, completed?: boolean): Promise<ITodo[]> {
+  async execute(
+    pagination: Pagination,
+    title?: string,
+    completed?: boolean
+  ): Promise<IListTodoResponse & IPaginationData> {
     const filter = this.buildFilter(title, completed);
 
-    const arr = await this.todoService.getTodosByFilter(filter);
+    const count = await this.todoService.countDocuments(filter);
 
-    return arr || [];
+    const paginationData = pagination.getPaginationData(count);
+
+    const arr = await this.todoService.getTodosByFilter(
+      filter,
+      pagination.skip,
+      pagination.limit
+    );
+
+    return {
+      ...paginationData,
+      results: arr || [],
+    };
   }
 
   private buildFilter(title?: string, completed?: boolean) {

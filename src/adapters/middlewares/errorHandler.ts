@@ -3,7 +3,6 @@ import BaseError from '@/adapters/error/BaseError';
 import ValidationError from '@/adapters/error/ValidationError';
 import { NextFunction, Request, Response } from 'express';
 import mongoose from 'mongoose';
-import NotFoundError from '../error/NotFoundError';
 
 export default function errorHandler(
   err: Error,
@@ -19,7 +18,7 @@ export default function errorHandler(
     new ValidationError(err).send(res);
   }
 
-  if (err instanceof NotFoundError) {
+  if (err instanceof BaseError) {
     err.send(res);
   }
 

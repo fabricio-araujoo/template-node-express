@@ -5,9 +5,12 @@ import { TodoService } from '@/core/services/TodoService';
 import {
   IGetTodoRequestParams,
   IListTodoRequestParams,
+  IListTodoResponse,
   ISaveTodoRequestBody,
 } from '@/ports/controller/TodoController';
 import { ITodo } from '@/core/models/Todo';
+import { IPaginationData } from '@/utils/Pagination';
+import paginationHandler from '../middlewares/PaginationHandler';
 
 const router = express.Router();
 
@@ -19,9 +22,10 @@ const constroller = new TodoController(service);
 
 router.get(
   `${base}/list`,
+  paginationHandler,
   (
     req: Request<unknown, unknown, unknown, IListTodoRequestParams>,
-    res: Response<ITodo[]>,
+    res: Response<IListTodoResponse & IPaginationData>,
     next: NextFunction
   ) => constroller.listTodo(req, res, next)
 );

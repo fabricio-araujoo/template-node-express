@@ -16,8 +16,12 @@ export class TodoService {
     return this.todoRepository.find();
   }
 
-  async getTodosByFilter(filter: IFindByFilterParams): Promise<ITodo[] | null> {
-    return this.todoRepository.findByFilter(filter);
+  async getTodosByFilter(
+    filter: IFindByFilterParams,
+    skip: number,
+    limit: number
+  ): Promise<ITodo[] | null> {
+    return this.todoRepository.findByFilter(filter, skip, limit);
   }
 
   async getTodoById(id: ObjectId): Promise<ITodo | null> {
@@ -26,5 +30,9 @@ export class TodoService {
 
   async saveTodo(title: string): Promise<ITodo> {
     return this.todoRepository.saveTodo(title);
+  }
+
+  async countDocuments(filter: IFindByFilterParams): Promise<number> {
+    return this.todoRepository.countDocuments(filter);
   }
 }

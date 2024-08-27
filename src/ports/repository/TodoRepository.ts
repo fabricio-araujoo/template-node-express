@@ -4,8 +4,13 @@ import { Document, ObjectId } from 'mongoose';
 export interface ITodoRepository {
   find(): Promise<ITodo[] | null>;
   findById(id: ObjectId): Promise<ITodo | null>;
-  findByFilter(filter?: IFindByFilterParams): Promise<ITodo[] | null>;
+  findByFilter(
+    filter: IFindByFilterParams,
+    skip: number,
+    limit: number
+  ): Promise<ITodo[] | null>;
   saveTodo(title: string): Promise<ITodo>;
+  countDocuments(filter: IFindByFilterParams): Promise<number>;
 }
 
 export type IFindByFilterParams = {
