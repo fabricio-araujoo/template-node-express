@@ -1,5 +1,6 @@
 import { ITodo } from '@/core/models/Todo';
 import { TodoService } from '@/core/services/TodoService';
+import { IFindByFilterParams } from '@/ports/repository/TodoRepository';
 
 export class ListTodoUseCase {
   private todoService: TodoService;
@@ -9,22 +10,24 @@ export class ListTodoUseCase {
   }
 
   async execute(title?: string, completed?: boolean): Promise<ITodo[]> {
-    if (!title && !completed) {
-      return this.getTodos();
-    }
+    const filter = this.buildFilter(title, completed);
 
-    return this.getFilteredTodos(title);
-  }
-
-  private async getTodos() {
-    const arr = await this.todoService.getTodos();
+    const arr = await this.todoService.getTodosByFilter(filter);
 
     return arr || [];
   }
 
-  private async getFilteredTodos(title?: string, completed?: boolean) {
-    const byTitle = await this.todoService.getTodosByTitle(title || '');
+  private buildFilter(title?: string, completed?: boolean) {
+    const filter: IFindByFilterParams = {};
 
-    return byTitle || [];
+    if (title) {
+      filter.title = new RegExp(title, 'i');
+    }
+
+    if (completed !== null && completed !== undefined) {
+      filter.completed = completed;
+    }
+
+    return filter;
   }
 }

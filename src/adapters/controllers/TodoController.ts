@@ -28,9 +28,9 @@ export class TodoController implements ITodoController {
     next: NextFunction
   ): Promise<Response<ITodo[]> | void> {
     try {
-      const { title } = req.query;
+      const { title, completed } = req.query;
 
-      const todos = await this.listTodoUseCase.execute(title);
+      const todos = await this.listTodoUseCase.execute(title, completed);
 
       return res.json(todos);
     } catch (err) {

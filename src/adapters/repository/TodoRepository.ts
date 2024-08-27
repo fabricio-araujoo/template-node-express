@@ -1,5 +1,8 @@
 import { TodoModel, ITodo } from '@/core/models/Todo';
-import { ITodoRepository } from '@/ports/repository/TodoRepository';
+import {
+  IFindByFilterParams,
+  ITodoRepository,
+} from '@/ports/repository/TodoRepository';
 import { ObjectId } from 'mongoose';
 
 export class TodoRepository implements ITodoRepository {
@@ -11,8 +14,10 @@ export class TodoRepository implements ITodoRepository {
     return TodoModel.findById(id);
   }
 
-  async findByTitle(title: string): Promise<ITodo[] | null> {
-    return TodoModel.find({ title: new RegExp(title, 'i') });
+  async findByFilter(filter: IFindByFilterParams): Promise<ITodo[] | null> {
+    return TodoModel.find({
+      ...filter,
+    });
   }
 
   async saveTodo(title: string): Promise<ITodo> {

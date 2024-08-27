@@ -1,4 +1,3 @@
-import bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
@@ -14,7 +13,6 @@ const app = express();
 
 // Middlewares
 app.use(morgan('tiny'));
-app.use(bodyParser.json());
 app.use(cors());
 app.use(helmet());
 app.use(express.json());

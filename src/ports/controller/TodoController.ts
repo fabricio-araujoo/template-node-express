@@ -20,7 +20,8 @@ export interface ITodoController {
 }
 
 export type IListTodoRequestParams = {
-  title: string;
+  title?: string;
+  completed?: boolean;
 };
 
 export type IGetTodoRequestParams = {
